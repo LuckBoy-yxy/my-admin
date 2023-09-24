@@ -1,11 +1,13 @@
 import { login } from '@/api/login'
+import { getUserInfo } from '@/api/user'
 import md5 from 'md5'
 import { getItem, setItem } from '@/utils/storage'
 import { TOKEN } from '@/constant'
 
 const state = () => {
   return {
-    token: getItem(TOKEN) || ''
+    token: getItem(TOKEN) || '',
+    userInfo: {}
   }
 }
 
@@ -13,6 +15,9 @@ const mutations = {
   setToken(state, token) {
     state.token = token
     setItem(TOKEN, token)
+  },
+  setUserInfo(state, data) {
+    state.userInfo = data
   }
 }
 
@@ -34,6 +39,10 @@ const actions = {
         reject(err)
       })
     })
+  },
+  async getUserInfo(context) {
+    const res = await getUserInfo()
+    this.commit('user/setUserInfo', res)
   }
 }
 

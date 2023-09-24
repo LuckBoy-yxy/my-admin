@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
+import store from '@/store'
+
 const baseURL = process.env.VUE_APP_BASE_API
 const instance = axios.create({
   baseURL,
@@ -9,6 +11,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use(config => {
   config.headers.icode = '071C6D3957E43AD4'
+  if (store.getters.token) {
+    config.headers.Authorization = `Bearer ${ store.getters.token }`
+  }
   return config
 }, err => {
   return Promise.reject(err)
