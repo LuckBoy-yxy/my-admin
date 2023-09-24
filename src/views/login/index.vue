@@ -1,5 +1,4 @@
 <script setup>
-import { UserFilled, Lock, View } from '@element-plus/icons'
 import { reactive } from 'vue'
 
 const formData = reactive({
@@ -14,9 +13,10 @@ const formData = reactive({
       <div class="form-title">用户登录</div>
 
       <el-form>
+        <!-- username -->
         <el-form-item>
           <span class="svg">
-            <el-icon><UserFilled /></el-icon>
+            <SvgIcon icon="user" />
           </span>
 
           <el-input
@@ -27,9 +27,10 @@ const formData = reactive({
           ></el-input>
         </el-form-item>
 
+        <!-- password -->
         <el-form-item>
           <span class="svg">
-            <el-icon><Lock /></el-icon>
+            <SvgIcon icon="password" />
           </span>
 
           <el-input
@@ -41,7 +42,7 @@ const formData = reactive({
           ></el-input>
 
           <span class="show-pwd">
-            <el-icon><View /></el-icon>
+            <SvgIcon icon="eye" />
           </span>
         </el-form-item>
 
