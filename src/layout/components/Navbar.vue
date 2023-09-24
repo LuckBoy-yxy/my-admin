@@ -1,5 +1,10 @@
 <script setup>
+  import { useStore } from 'vuex'
 
+  const store = useStore()
+  const logout = () => {
+    store.dispatch('user/logout')
+  }
 </script>
 
 <template>
@@ -16,7 +21,7 @@
             <router-link to="/">
               <el-dropdown-item>首页</el-dropdown-item>
             </router-link>
-            <el-dropdown-item divided>
+            <el-dropdown-item divided @click="logout">
               退出登录
             </el-dropdown-item>
           </el-dropdown-menu>
