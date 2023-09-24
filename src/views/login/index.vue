@@ -53,3 +53,73 @@ const formData = reactive({
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
+$cursor: #fff;
+
+.login {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: $bg;
+
+  .login-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 520px;
+    transform: translate(-50%, -50%);
+
+    .form-title {
+      margin-bottom: 40px;
+      text-align: center;
+      font-size: 40px;
+      color: #fff;
+      font-weight: bold;
+    }
+    
+    ::v-deep .el-form-item__content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 45px;
+      color: #454545;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.1);
+
+      .svg {
+        padding: 6px 15px 6px 15px;
+        color: $dark_gray;
+      }
+
+      input {
+        height: 45px;
+        color: $light_gray;
+        border: 0;
+        border-radius: 0;
+        background-color: transparent;
+        caret-color: $cursor;
+      }
+
+      .pwd {
+        padding-right: 13px;
+      }
+
+      .show-pwd {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        font-size: 16px;
+        color: $dark_gray;
+        cursor: pointer;
+        user-select: none;
+      }
+    }
+  }
+}
+</style>
