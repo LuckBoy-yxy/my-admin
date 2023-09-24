@@ -1,6 +1,8 @@
 <script setup>
   import { reactive, ref, computed } from 'vue'
   import { useStore } from 'vuex'
+  import { useRouter } from 'vue-router'
+  import { ElMessage } from 'element-plus'
   import { validatePwd } from '@/utils/rules'
 
   const formData = reactive({
@@ -27,6 +29,7 @@
   })
 
   const store = useStore()
+  const router = useRouter()
   const loading = ref(false)
   const form = ref(null)
   const handleLoginClick = () => {
@@ -37,7 +40,10 @@
       store
         .dispatch('user/handleLogin', formData)
         .then(res => {
-
+          if (res.token) {
+            ElMessage.success('登录成功')
+            router.push('/')
+          }
         })
         .catch(err => {
           console.log(err)

@@ -1,14 +1,19 @@
 import { login } from '@/api/login'
 import md5 from 'md5'
+import { getItem, setItem } from '@/utils/storage'
+import { TOKEN } from '@/constant'
 
 const state = () => {
   return {
-    token: ''
+    token: getItem(TOKEN) || ''
   }
 }
 
 const mutations = {
-
+  setToken(state, token) {
+    state.token = token
+    setItem(TOKEN, token)
+  }
 }
 
 const getters = {
@@ -23,7 +28,8 @@ const actions = {
         username,
         password: md5(password)
       }).then(res => {
-        resolve()
+        this.commit('user/setToken', res.token)
+        resolve(res)
       }).catch(err => {
         reject(err)
       })
