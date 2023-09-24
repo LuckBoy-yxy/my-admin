@@ -1,5 +1,6 @@
 <script setup>
   import { reactive, ref, computed } from 'vue'
+  import { useStore } from 'vuex'
   import { validatePwd } from '@/utils/rules'
 
   const formData = reactive({
@@ -24,6 +25,26 @@
   const passwordType = computed(() => {
     return isShowPwd.value ? 'text' : 'password'
   })
+
+  const store = useStore()
+  const loading = ref(false)
+  const form = ref(null)
+  const handleLoginClick = () => {
+    form.value.validate(valid => {
+      if (!valid) return
+
+      loading.value = true
+      store
+        .dispatch('user/handleLogin', formData)
+        .then(res => {
+
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      loading.value = false
+    })
+  }
 </script>
 
 <template>
@@ -32,6 +53,7 @@
       <div class="form-title">用户登录</div>
 
       <el-form
+        ref="form"
         :model="formData"
         :rules="loginRules"
         atuocomplete="off"
@@ -71,6 +93,8 @@
         <el-button
           type="primary"
           style="width: 100%; margin-top: 30px;"
+          :loading="loading"
+          @click="handleLoginClick"
         >登录</el-button>
       </el-form>
     </div>

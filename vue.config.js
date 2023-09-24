@@ -7,6 +7,15 @@ function resolve(dir) {
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://api.imooc-admin.lgdsunday.club/',
+        // 允许跨域
+        changeOrigin: true
+      }
+    }
+  },
   chainWebpack(config) {
     config.module
       .rule('svg')
