@@ -2,6 +2,7 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
 import store from '@/store'
+import { isCheckTimeout } from '@/utils/auth'
 
 const baseURL = process.env.VUE_APP_BASE_API
 const instance = axios.create({
@@ -10,10 +11,16 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use(config => {
-  config.headers.icode = '071C6D3957E43AD4'
-  if (store.getters.token) {
-    config.headers.Authorization = `Bearer ${ store.getters.token }`
+  const token = store.getters.token
+  if (token) {
+    if (isCheckTimeout()) {
+      store.dispatch('user/logout')
+      ElMessage.error('token 已失效')
+    } else {
+      config.headers.Authorization = `Bearer ${token}`
+    }
   }
+  config.headers.icode = '071C6D3957E43AD4'
   return config
 }, err => {
   return Promise.reject(err)
@@ -28,7 +35,10 @@ instance.interceptors.response.use(res => {
     return Promise.reject(new Error(message))
   }
 }, err => {
-  ElMessage.error(err.message)
+  if (err.response?.data?.code === 401) {
+    store.dispatch('user/logout')
+  }
+  ElMessage.error(err.response?.data?.message)
   return Promise.reject(err)
 })
 

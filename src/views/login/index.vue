@@ -4,6 +4,7 @@
   import { useRouter } from 'vue-router'
   import { ElMessage } from 'element-plus'
   import { validatePwd } from '@/utils/rules'
+  import { setTimeStamp } from '@/utils/auth'
 
   const formData = reactive({
     username: 'super-admin',
@@ -42,6 +43,7 @@
         .then(res => {
           if (res.token) {
             ElMessage.success('登录成功')
+            setTimeStamp()
             router.push('/')
           }
         })
