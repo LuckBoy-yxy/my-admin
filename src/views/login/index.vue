@@ -1,10 +1,25 @@
 <script setup>
-import { reactive } from 'vue'
+  import { reactive } from 'vue'
+  import { validatePwd } from '@/utils/rules'
 
-const formData = reactive({
-  username: '',
-  password: ''
-})
+  const formData = reactive({
+    username: 'super-admin',
+    password: '123456'
+  })
+
+  const loginRules = reactive({
+    username: [
+      { required: true, message: '用户名是必填项', trigger: 'blur' }
+    ],
+      
+    password: [
+      { 
+        required: true,
+        trigger: 'blur',
+        validator: validatePwd()
+      }
+    ]
+  }) 
 </script>
 
 <template>
@@ -12,9 +27,12 @@ const formData = reactive({
     <div class="login-form">
       <div class="form-title">用户登录</div>
 
-      <el-form>
-        <!-- username -->
-        <el-form-item>
+      <el-form
+        :model="formData"
+        :rules="loginRules"
+        atuocomplete="off"
+      >
+        <el-form-item prop="username">
           <span class="svg">
             <SvgIcon icon="user" />
           </span>
@@ -27,8 +45,7 @@ const formData = reactive({
           ></el-input>
         </el-form-item>
 
-        <!-- password -->
-        <el-form-item>
+        <el-form-item prop="password">
           <span class="svg">
             <SvgIcon icon="password" />
           </span>
