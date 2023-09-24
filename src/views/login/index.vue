@@ -1,5 +1,5 @@
 <script setup>
-  import { reactive } from 'vue'
+  import { reactive, ref, computed } from 'vue'
   import { validatePwd } from '@/utils/rules'
 
   const formData = reactive({
@@ -11,7 +11,6 @@
     username: [
       { required: true, message: '用户名是必填项', trigger: 'blur' }
     ],
-      
     password: [
       { 
         required: true,
@@ -19,7 +18,12 @@
         validator: validatePwd()
       }
     ]
-  }) 
+  })
+
+  const isShowPwd = ref(false)
+  const passwordType = computed(() => {
+    return isShowPwd.value ? 'text' : 'password'
+  })
 </script>
 
 <template>
@@ -53,13 +57,14 @@
           <el-input
             class="pwd"
             name="password"
-            type="password"
+            :type="passwordType"
             placeholder="Please enter your PIN"
             v-model="formData.password"
           ></el-input>
 
-          <span class="show-pwd">
-            <SvgIcon icon="eye" />
+          <span class="show-pwd" @click="isShowPwd = !isShowPwd">
+            <SvgIcon v-if="!isShowPwd" icon="eye" />
+            <SvgIcon v-else icon="eye-open" />
           </span>
         </el-form-item>
 
