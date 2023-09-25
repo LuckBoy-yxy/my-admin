@@ -2,6 +2,7 @@
   import { useStore } from 'vuex'
 
   import Hamburger from '@/components/Hamburger/index.vue'
+  import Breadcrumb from '@/components/Breadcrumb/index.vue';
 
   const store = useStore()
   const logout = () => {
@@ -12,6 +13,8 @@
 <template>
   <div class="navbar">
     <Hamburger class="hamburger-container" />
+
+    <Breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
@@ -54,6 +57,10 @@
     &:hover {
       background: rgba(0, 0, 0, 0.1);
     }
+  }
+
+  .breadcrumb-container {
+    float: left;
   }
 
   .right-menu {

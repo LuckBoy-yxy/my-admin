@@ -1,5 +1,9 @@
 <script setup>
+  import { ref } from 'vue'
+
   import SidebarMenu from './SidebarMenu.vue'
+
+  const logoHeight = ref(44)
 </script>
 
 <template>
@@ -7,7 +11,7 @@
     <div class="logo-contaioner">
       <el-avatar 
         shape="square" 
-        :size="44"
+        :size="logoHeight"
         :src="$store.getters.userInfo?.avatar" 
       />
       <h1
@@ -25,7 +29,7 @@
 <style lang="scss" scoped>
 .logo-contaioner {
   display: flex;
-  height: 44px;
+  height: v-bind(logoHeight) + 'px';
   justify-content: center;
   align-items: center;
   padding: 10px 0 15px 0;
