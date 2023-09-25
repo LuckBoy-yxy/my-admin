@@ -1,6 +1,8 @@
 <script setup>
   import { computed } from 'vue'
   import { useRouter } from 'vue-router'
+
+  import SidebarItem from './SidebarItem.vue'
   import { filterRouters, generateMenus } from '@/utils/routes.js'
 
   const router = useRouter()
@@ -8,34 +10,21 @@
     const filterRoutes = filterRouters(router.getRoutes())
     return generateMenus(filterRoutes)
   })
-
-  console.log(routes.value)
 </script>
 
 <template>
   <el-menu
     :uniqueOpened="true"
-    default-active="2"
+    default-active="/profile"
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
   >
-    <el-submenu index="1">
-      <template #title>
-        <i class="el-icon-location"></i>
-        <span>导航一</span>
-      </template>
-
-      <el-menu-item index="1-1">选项1</el-menu-item>
-      <el-menu-item index="1-2">选项2</el-menu-item>
-    </el-submenu>
-
-    <el-menu-item index="2">
-      <template #title>
-        <i class="el-icon-setting"></i>
-        <span>导航四</span>
-      </template>
-    </el-menu-item>
+    <SidebarItem
+      v-for="item in routes"
+      :key="item.path"
+      :route="item"
+    />
   </el-menu>
 </template>
 
