@@ -1,5 +1,15 @@
 <script setup>
+  import { computed } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { filterRouters, generateMenus } from '@/utils/routes.js'
 
+  const router = useRouter()
+  const routes = computed(() => {
+    const filterRoutes = filterRouters(router.getRoutes())
+    return generateMenus(filterRoutes)
+  })
+
+  console.log(routes.value)
 </script>
 
 <template>

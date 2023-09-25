@@ -7,11 +7,15 @@ function resolve(dir) {
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  configureWebpack: {
+    resolve: {
+      fallback: { path: require.resolve('path-browserify') }
+    }
+  },
   devServer: {
     proxy: {
       '/api': {
         target: 'https://api.imooc-admin.lgdsunday.club/',
-        // 允许跨域
         changeOrigin: true
       }
     }
