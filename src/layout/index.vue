@@ -9,7 +9,7 @@
 <template>
   <div
     class="app-wrapper"
-    :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']"
+    :class="{'hideSidebar': $store.getters.sidebarOpened === false}"
   >
     <SideBar
       class="sidebar-container"
@@ -37,21 +37,13 @@
   width: 100%;
 }
 
-.openSlidebar .sidebar-container {
-  width: $sideBarWidth;
-}
-
-.hideSlidebar .sidebar-container {
-  width: $hideSideBarWidth;
-}
-
 .fixed-header {
   position: fixed;
   top: 0;
   right: 0;
   z-index: 9;
   width: calc(100% - #{$sideBarWidth});
-  transition: width 0.28s;
+  transition: width #{$sideBarDuration};
 }
 
 .hideSidebar .fixed-header {
