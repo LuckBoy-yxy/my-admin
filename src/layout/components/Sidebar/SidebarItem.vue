@@ -2,6 +2,7 @@
   import { defineProps } from 'vue'
   import SidebarItem from './SidebarItem.vue'
   import MenuItem from './MenuItem.vue'
+import router from '@/router';
 
   const props = defineProps({
     route: {
@@ -27,6 +28,9 @@
   </el-submenu>
 
   <el-menu-item v-else :index="route.path">
+    <!-- <RouterLink :to="route.path">
+      <MenuItem :icon="route.meta.icon" :title="route.meta.title" />
+    </RouterLink> -->
     <MenuItem :icon="route.meta.icon" :title="route.meta.title" />
   </el-menu-item>
 </template>

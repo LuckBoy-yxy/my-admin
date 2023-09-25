@@ -1,6 +1,7 @@
 <script setup>
   import { computed } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRouter, useRoute } from 'vue-router'
+  import { useStore } from 'vuex'
 
   import SidebarItem from './SidebarItem.vue'
   import { filterRouters, generateMenus } from '@/utils/routes.js'
@@ -10,15 +11,26 @@
     const filterRoutes = filterRouters(router.getRoutes())
     return generateMenus(filterRoutes)
   })
+
+  const store = useStore()
+  const cssVariable = computed(() => {
+    return store.getters.cssVariable
+  })
+
+  const route = useRoute()
+  const activeMenu = computed(() => {
+    return route.path
+  })
 </script>
 
 <template>
   <el-menu
     :uniqueOpened="true"
-    default-active="/profile"
-    background-color="#545c64"
-    text-color="#fff"
-    active-text-color="#ffd04b"
+    :default-active="activeMenu"
+    :background-color="cssVariable.menuBg"
+    :text-color="cssVariable.menuText"
+    :active-text-color="cssVariable.menuActiveText"
+    router
   >
     <SidebarItem
       v-for="item in routes"
