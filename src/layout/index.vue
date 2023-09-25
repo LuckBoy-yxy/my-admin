@@ -7,7 +7,10 @@
 </script>
 
 <template>
-  <div class="app-wrapper">
+  <div
+    class="app-wrapper"
+    :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']"
+  >
     <SideBar
       class="sidebar-container"
       :style="{ backgroundColor: variable.menuBg }"
@@ -34,11 +37,24 @@
   width: 100%;
 }
 
+.openSlidebar .sidebar-container {
+  width: $sideBarWidth;
+}
+
+.hideSlidebar .sidebar-container {
+  width: $hideSideBarWidth;
+}
+
 .fixed-header {
   position: fixed;
   top: 0;
   right: 0;
   z-index: 9;
   width: calc(100% - #{$sideBarWidth});
+  transition: width 0.28s;
+}
+
+.hideSidebar .fixed-header {
+  width: calc(100% - #{$hideSideBarWidth});
 }
 </style>

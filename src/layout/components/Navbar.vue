@@ -1,6 +1,8 @@
 <script setup>
   import { useStore } from 'vuex'
 
+  import Hamburger from '@/components/Hamburger/index.vue'
+
   const store = useStore()
   const logout = () => {
     store.dispatch('user/logout')
@@ -9,6 +11,8 @@
 
 <template>
   <div class="navbar">
+    <Hamburger class="hamburger-container" />
+
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -39,6 +43,18 @@
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+  .hamburger-container {
+    line-height: 46px;
+    height: 100%;
+    float: left;
+    cursor: pointer;
+    transition: background 0.4s;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
 
   .right-menu {
     display: flex;

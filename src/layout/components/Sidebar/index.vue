@@ -4,7 +4,7 @@
 
 <template>
   <div class="">
-    <h1>LOGO</h1>
+    <h1>占位</h1>
     
     <el-scrollbar>
       <SidebarMenu />

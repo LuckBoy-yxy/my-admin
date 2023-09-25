@@ -21,10 +21,15 @@
   const activeMenu = computed(() => {
     return route.path
   })
+
+  const isCollapse = computed(() => {
+    return store.getters.sidebarOpened
+  })
 </script>
 
 <template>
   <el-menu
+    :collapse="!isCollapse"
     :uniqueOpened="true"
     :default-active="activeMenu"
     :background-color="cssVariable.menuBg"
