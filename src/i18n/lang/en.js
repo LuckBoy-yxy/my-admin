@@ -4,6 +4,8 @@ export default {
     loginBtn: 'Login',
     usernameRule: 'Username is required',
     passwordRule: 'Password cannot be less than 6 digits',
+    userPlaceholder: 'Please enter your username',
+    pwdPlaceholder: 'Please enter your PIN',
     desc: `
     Test authority account:<br />
      Provide three kinds of authority accounts:<br />
@@ -34,7 +36,9 @@ export default {
     articleEditor: 'ArticleEditor'
   },
   toast: {
-    switchLangSuccess: 'Switch Language Success'
+    switchLangSuccess: 'Switch Language Success',
+    loginSuccess: 'login successfully',
+    tokenError: 'token invalidation'
   },
   tagsView: {
     refresh: 'Refresh',

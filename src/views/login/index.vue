@@ -3,9 +3,13 @@
   import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
   import { ElMessage } from 'element-plus'
+  import { useI18n } from 'vue-i18n'
+
+  import LangSelect from '@/components/LangSelect/index.vue'
   import { validatePwd } from '@/utils/rules'
   import { setTimeStamp } from '@/utils/auth'
 
+  const i18n = useI18n()
   const formData = reactive({
     username: 'super-admin',
     password: '123456'
@@ -13,7 +17,7 @@
 
   const loginRules = reactive({
     username: [
-      { required: true, message: '用户名是必填项', trigger: 'blur' }
+      { required: true, message: i18n.t('msg.login.usernameRule'), trigger: 'blur' }
     ],
     password: [
       { 
@@ -42,7 +46,7 @@
         .dispatch('user/handleLogin', formData)
         .then(res => {
           if (res.token) {
-            ElMessage.success('登录成功')
+            ElMessage.success(i18n.t('msg.toast.loginSuccess'))
             setTimeStamp()
             router.push('/')
           }
@@ -58,7 +62,10 @@
 <template>
   <div class="login">
     <div class="login-form">
-      <div class="form-title">用户登录</div>
+      <div class="form-title">
+        <h3>{{ $t('msg.login.title') }}</h3>
+        <LangSelect class="lang-select" />
+      </div>
 
       <el-form
         ref="form"
@@ -74,7 +81,7 @@
           <el-input
             name="username"
             type="text"
-            placeholder="Please enter your username"
+            :placeholder="$t('msg.login.userPlaceholder')"
             v-model="formData.username"
           ></el-input>
         </el-form-item>
@@ -88,7 +95,7 @@
             class="pwd"
             name="password"
             :type="passwordType"
-            placeholder="Please enter your PIN"
+            :placeholder="$t('msg.login.pwdPlaceholder')"
             v-model="formData.password"
           ></el-input>
 
@@ -100,10 +107,12 @@
 
         <el-button
           type="primary"
-          style="width: 100%; margin-top: 30px;"
+          style="width: 100%; margin-top: 10px; margin-bottom: 30px;"
           :loading="loading"
           @click="handleLoginClick"
-        >登录</el-button>
+        >{{ $t('msg.login.loginBtn') }}</el-button>
+
+        <div class="tips" v-html="$t('msg.login.desc')"></div>
       </el-form>
     </div>
   </div>
@@ -130,11 +139,22 @@ $cursor: #fff;
     transform: translate(-50%, -50%);
 
     .form-title {
+      position: relative;
       margin-bottom: 40px;
       text-align: center;
       font-size: 40px;
       color: #fff;
       font-weight: bold;
+      :deep(.lang-select) {
+        position: absolute;
+        top: 19px;
+        right: 0;
+        padding: 4px;
+        font-size: 22px;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+      }
     }
     
     ::v-deep .el-form-item__content {
@@ -174,6 +194,10 @@ $cursor: #fff;
         cursor: pointer;
         user-select: none;
       }
+    }
+
+    .tips {
+      color: #fff;
     }
   }
 }

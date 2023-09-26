@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import i18n from '@/i18n'
 import { ElMessage } from 'element-plus'
 
 import store from '@/store'
@@ -15,7 +16,7 @@ instance.interceptors.request.use(config => {
   if (token) {
     if (isCheckTimeout()) {
       store.dispatch('user/logout')
-      ElMessage.error('token 已失效')
+      // ElMessage.error(i18n.global.t('msg.toast.tokenError'))
       return Promise.reject(new Error('token 已失效'))
     } else {
       config.headers.Authorization = `Bearer ${token}`
@@ -39,7 +40,7 @@ instance.interceptors.response.use(res => {
   if (err.response?.data?.code === 401) {
     store.dispatch('user/logout')
   }
-  ElMessage.error(err.response?.data?.message)
+  // ElMessage.error(i18n.global.t('msg.toast.tokenError'))
   return Promise.reject(err)
 })
 
