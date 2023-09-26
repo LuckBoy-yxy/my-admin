@@ -16,7 +16,7 @@ instance.interceptors.request.use(config => {
     if (isCheckTimeout()) {
       store.dispatch('user/logout')
       ElMessage.error('token 已失效')
-      // return Promise.reject(new Error('token 已失效'))
+      return Promise.reject(new Error('token 已失效'))
     } else {
       config.headers.Authorization = `Bearer ${token}`
     }

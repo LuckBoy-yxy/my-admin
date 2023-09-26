@@ -1,14 +1,43 @@
 <script setup>
-  import {} from 'vue'
+  import { watch, ref, computed } from 'vue'
+  import { useStore } from 'vuex'
+  import { useRoute, useRouter } from 'vue-router'
+
+  const route = useRoute()
+  const router = useRouter()
+  const breadcrumbData = ref([])
+  watch(route, (newVal, oldVal) => {
+    breadcrumbData.value = route.matched.filter(route => {
+      return route.meta.icon && route.meta.title
+    })
+  }, { immediate: true })
+
+  const handleClick = route => {
+    router.push(route.path)
+  }
+
+  const store = useStore()
+  const textColor = computed(() => {
+    return store.getters.cssVariable.menuBg
+  })
 </script>
 
 <template>
   <el-breadcrumb class="breadcrumb" separator="/">
-    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-    <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-    <el-breadcrumb-item>
-      <span class="no-redirect">活动详情</span>
+    <el-breadcrumb-item
+      v-for="(route, index) in breadcrumbData"
+      :key="route.path"
+    >
+      <span
+        v-if="index === breadcrumbData.length -1"
+        class="no-redirect"
+      >{{ route.meta.title }}</span>
+
+      <a
+        v-else
+        class="redirect"
+        @click="handleClick(route)"
+      >{{ route.meta.title }}</a>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -20,8 +49,16 @@
   line-height: 50px;
   margin-left: 8px;
 
+  .redirect {
+    color: v-bind(textColor);
+    font-weight: 600;
+    &:hover {
+      color: #666;
+    }
+  }
+
   ::v-deep .no-redirect {
-    color: #97a8be;
+    color: v-bind(textColor);
     cursor: text;
   }
 }
