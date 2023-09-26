@@ -13,7 +13,7 @@ import router from '@/router';
 </script>
 
 <template>
-  <el-submenu
+  <el-sub-menu
     v-if="route.children.length > 0"
     :index="route.path"
   >
@@ -25,7 +25,7 @@ import router from '@/router';
       :key="item.path"
       :route="item"
     />
-  </el-submenu>
+  </el-sub-menu>
 
   <el-menu-item v-else :index="route.path">
     <!-- <RouterLink :to="route.path">

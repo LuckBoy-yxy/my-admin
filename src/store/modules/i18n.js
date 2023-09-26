@@ -10,7 +10,7 @@ const state = () => {
 const mutations = {
   toggleLang(state, lang) {
     state.language = lang
-    setItem(lang)
+    setItem(LANG, lang)
   }
 }
 

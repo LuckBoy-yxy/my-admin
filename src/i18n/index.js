@@ -1,4 +1,5 @@
 import { createI18n } from 'vue-i18n'
+import store from '@/store'
 
 const messages = {
   en: {
@@ -13,7 +14,7 @@ const messages = {
   }
 }
 
-const locale = 'en'
+const locale = store.getters.language
 const i18n = createI18n({
   legacy: false,
   globalInjection: true,
