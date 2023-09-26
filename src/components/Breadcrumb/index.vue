@@ -24,21 +24,23 @@
 
 <template>
   <el-breadcrumb class="breadcrumb" separator="/">
-    <el-breadcrumb-item
-      v-for="(route, index) in breadcrumbData"
-      :key="route.path"
-    >
-      <span
-        v-if="index === breadcrumbData.length -1"
-        class="no-redirect"
-      >{{ route.meta.title }}</span>
+    <transition-group name="breadcrumb">
+      <el-breadcrumb-item
+        v-for="(route, index) in breadcrumbData"
+        :key="route.path"
+      >
+        <span
+          v-if="index === breadcrumbData.length -1"
+          class="no-redirect"
+        >{{ route.meta.title }}</span>
 
-      <a
-        v-else
-        class="redirect"
-        @click="handleClick(route)"
-      >{{ route.meta.title }}</a>
-    </el-breadcrumb-item>
+        <a
+          v-else
+          class="redirect"
+          @click="handleClick(route)"
+        >{{ route.meta.title }}</a>
+      </el-breadcrumb-item>
+    </transition-group>
   </el-breadcrumb>
 </template>
 
