@@ -4,7 +4,7 @@
 
 <template>
   <div class="">
-    {{ $t('msg.test') }}
+    {{ $t('msg.login.title') }}
     
     <el-pagination
       :page-size="100"
