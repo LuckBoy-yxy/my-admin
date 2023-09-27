@@ -1,6 +1,11 @@
 <script setup>
-  const handleCommand = color => {
+  import { ref } from 'vue'
 
+  import SelectColor from './components/SelectColor.vue'
+
+  const selectColorVisible = ref(false)
+  const handleCommand = color => {
+    selectColorVisible.value = true
   }
 </script>
 
@@ -23,6 +28,10 @@
       </el-dropdown-menu>
     </template>
   </el-dropdown>
+
+  <div>
+    <SelectColor v-model="selectColorVisible" />
+  </div>
 </template>
 
 <style lang="scss" scoped>

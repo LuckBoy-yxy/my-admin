@@ -1,15 +1,17 @@
 <script setup>
   import { defineEmits, defineProps, ref } from 'vue'
+  import { useStore } from 'vuex'
 
-  const emits = ['update:modelValue']
+  const emits = defineEmits(['update:modelValue'])
   const props = defineProps({
     modelValue: {
       type: Boolean,
-      required: true
+      required: false
     }
   })
+  const store = useStore()
 
-  const mColor = ref('#00ff00')
+  const mColor = ref(store.getters.mainColor)
   const predefineColors = [
     '#ff4500',
     '#ff8c00',
@@ -28,6 +30,7 @@
   ]
 
   const confirm = async () => {
+    store.commit('theme/setMainColor', mColor.value)
     handleClose()
   }
   const handleClose = () => {
@@ -39,8 +42,8 @@
   <el-dialog
     title="提示"
     width="30%"
-    v-model="modelValue"
-    @click="handleClose"
+    :modelValue="modelValue"
+    @close="handleClose"
   >
 
     <div class="center">
