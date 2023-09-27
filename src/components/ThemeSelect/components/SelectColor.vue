@@ -2,6 +2,8 @@
   import { defineEmits, defineProps, ref } from 'vue'
   import { useStore } from 'vuex'
 
+  import { generateNewStyle, writeNewStyle } from '@/utils/theme'
+
   const emits = defineEmits(['update:modelValue'])
   const props = defineProps({
     modelValue: {
@@ -30,6 +32,8 @@
   ]
 
   const confirm = async () => {
+    const newStyleText = await generateNewStyle(mColor.value)
+    writeNewStyle(newStyleText)
     store.commit('theme/setMainColor', mColor.value)
     handleClose()
   }
