@@ -13,7 +13,7 @@
   >
     <SideBar
       class="sidebar-container"
-      :style="{ backgroundColor: variable.menuBg }"
+      :style="{ backgroundColor: $store.getters.cssVariable.menuBg }"
     />
     <div class="main-container">
 
