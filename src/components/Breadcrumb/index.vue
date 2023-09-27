@@ -3,6 +3,8 @@
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
 
+  import { generateTitle } from '@/utils/i18n'
+
   const route = useRoute()
   const router = useRouter()
   const breadcrumbData = ref([])
@@ -32,13 +34,13 @@
         <span
           v-if="index === breadcrumbData.length -1"
           class="no-redirect"
-        >{{ route.meta.title }}</span>
+        >{{ generateTitle(route.meta.title) }}</span>
 
         <a
           v-else
           class="redirect"
           @click="handleClick(route)"
-        >{{ route.meta.title }}</a>
+        >{{ generateTitle(route.meta.title) }}</a>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
