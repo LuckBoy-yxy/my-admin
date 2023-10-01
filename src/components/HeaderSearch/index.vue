@@ -1,5 +1,7 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { filterRouters, generateMenus } from '@/utils/route'
 
   const isShow = ref(false)
   const onShowClick = () => {
@@ -14,6 +16,11 @@
 
   }
 
+  const router = useRouter()
+  const searchPool = computed(() => {
+    const fRoutes = filterRouters(router.getRoutes())
+    return generateMenus(fRoutes)
+  })
   const options = ref([])
 </script>
 
