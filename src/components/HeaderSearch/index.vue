@@ -1,39 +1,43 @@
 <script setup>
-  import { ref, computed } from 'vue'
+  import { ref, computed, watch } from 'vue'
   import { useRouter } from 'vue-router'
   import Fuse from 'fuse.js'
 
   import { generateRoutes } from './FuseData'
   import { filterRouters } from '@/utils/routes'
+  import { watchSwitchLang } from '@/utils/i18n'
 
   const keyWord = ref('')
   const isShow = ref(false)
   const onShowClick = () => {
     isShow.value = !isShow.value
-    if (isShow.value === true) {
-      keyWord.value = ''
-    }
   }
 
   const router = useRouter()
-  const searchPool = computed(() => {
+  let searchPool = computed(() => {
     const fRoutes = filterRouters(router.getRoutes())
     return generateRoutes(fRoutes)
   })
-  const fuse = new Fuse(searchPool.value ,{
-    shouldSort: true,
-    minMatchCharLength: 1,
-    keys: [
-      {
-        name: 'title',
-        weight: 0.7
-      },
-      {
-        name: 'path',
-        weight: 0.3
-      }
-    ]
-  })
+
+  let fuse
+  const initFuse = searchPool => {
+    fuse = new Fuse(searchPool ,{
+      shouldSort: true,
+      minMatchCharLength: 1,
+      threshold: 0.4,
+      keys: [
+        {
+          name: 'title',
+          weight: 0.7
+        },
+        {
+          name: 'path',
+          weight: 0.3
+        }
+      ]
+    })
+  }
+  initFuse(searchPool.value)
 
   const options = ref([])
   const querySearch = query => {
@@ -46,6 +50,31 @@
   const onSelectChange = value => {
     router.push(value.path)
   }
+
+  const headerSearchSelectRef = ref(null)
+  const handleClose = () => {
+    headerSearchSelectRef.value.blur()
+    isShow.value = false
+    keyWord.value = ''
+    options.value = []
+  }
+
+  watch(isShow, value => {
+    if (value) {
+      headerSearchSelectRef.value.focus()
+      document.body.addEventListener('click', handleClose)
+    } else {
+      document.body.removeEventListener('click', handleClose)
+    }
+  })
+
+  watchSwitchLang(() => {
+    searchPool = computed(() => {
+      const fRoutes = filterRouters(router.getRoutes())
+      return generateRoutes(fRoutes)
+    })
+    initFuse(searchPool.value)
+  })
 </script>
 
 <template>
