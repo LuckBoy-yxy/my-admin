@@ -6,6 +6,7 @@
   import LangSelect from '@/components/LangSelect/index.vue'
   import ThemePicker from '@/components/ThemeSelect/index'
   import Screenfull from '@/components/Screenfull'
+  import HeaderSearch from '@/components/HeaderSearch'
 
   const store = useStore()
   const logout = () => {
@@ -20,6 +21,8 @@
     <Breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <HeaderSearch class="right-menu-item hover-effect"></HeaderSearch>
+
       <Screenfull class="right-menu-item hover-effect" />
 
       <ThemePicker class="right-menu-item hover-effect" />
