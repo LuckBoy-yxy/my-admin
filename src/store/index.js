@@ -5,6 +5,7 @@ import sidebar from './modules/sidebar.js'
 // import variable from '@/styles/variable.modules.scss'
 import i18n from './modules/i18n.js'
 import theme from './modules/theme.js'
+import tagsView from './modules/tagsView.js'
 
 import { MAIN_COLOR } from '@/constant'
 import { getItem } from '@/utils/storage'
@@ -31,6 +32,7 @@ export default createStore({
     user,
     sidebar,
     i18n,
-    theme
+    theme,
+    tagsView
   }
 })

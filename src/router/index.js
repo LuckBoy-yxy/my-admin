@@ -45,7 +45,6 @@ const privateRoutes = [
       title: 'user',
       icon: 'personnel'
     },
-
     children: [
       {
         path: '/user/manage',
