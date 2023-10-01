@@ -3,27 +3,24 @@
   import { useRouter } from 'vue-router'
   import Fuse from 'fuse.js'
 
-  import { filterRouters, generateMenus } from '@/utils/routes'
+  import { generateRoutes } from './FuseData'
+  import { filterRouters } from '@/utils/routes'
 
+  const keyWord = ref('')
   const isShow = ref(false)
   const onShowClick = () => {
     isShow.value = !isShow.value
-  }
-
-  const keyWord = ref('')
-  const querySearch = () => {
-
-  }
-  const onSelectChange = () => {
-
+    if (isShow.value === true) {
+      keyWord.value = ''
+    }
   }
 
   const router = useRouter()
   const searchPool = computed(() => {
     const fRoutes = filterRouters(router.getRoutes())
-    return generateMenus(fRoutes)
+    return generateRoutes(fRoutes)
   })
-  const fuse = new Fuse({
+  const fuse = new Fuse(searchPool.value ,{
     shouldSort: true,
     minMatchCharLength: 1,
     keys: [
@@ -39,6 +36,16 @@
   })
 
   const options = ref([])
+  const querySearch = query => {
+    if (query !== '') {
+      options.value = fuse.search(query)
+    } else {
+      options.value = []
+    }
+  }
+  const onSelectChange = value => {
+    router.push(value.path)
+  }
 </script>
 
 <template>
@@ -61,11 +68,11 @@
       @change="onSelectChange"
     >
       <el-option
-        v-for="item in 5"
-        :key="item"
-        :value="item"
-        :label="item"
-      ></el-option>    
+        v-for="option in options"
+        :key="option.item.path"
+        :label="option.item.title.join(' > ')"
+        :value="option.item"
+      />
     </el-select>
   </div>
 </template>

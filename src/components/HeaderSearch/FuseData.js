@@ -2,7 +2,7 @@ import path from 'path-browserify'
 import i18n from '@/i18n'
 
 export function generateRoutes(routes, basePath='/', prefixTitle=[]) {
-  const result = []
+  let result = []
   for (const route of routes) {
     const data = {
       path: path.resolve(basePath, route.path),
