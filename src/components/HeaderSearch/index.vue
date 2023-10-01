@@ -1,7 +1,9 @@
 <script setup>
   import { ref, computed } from 'vue'
   import { useRouter } from 'vue-router'
-  import { filterRouters, generateMenus } from '@/utils/route'
+  import Fuse from 'fuse.js'
+
+  import { filterRouters, generateMenus } from '@/utils/routes'
 
   const isShow = ref(false)
   const onShowClick = () => {
@@ -21,6 +23,21 @@
     const fRoutes = filterRouters(router.getRoutes())
     return generateMenus(fRoutes)
   })
+  const fuse = new Fuse({
+    shouldSort: true,
+    minMatchCharLength: 1,
+    keys: [
+      {
+        name: 'title',
+        weight: 0.7
+      },
+      {
+        name: 'path',
+        weight: 0.3
+      }
+    ]
+  })
+
   const options = ref([])
 </script>
 
