@@ -1,16 +1,21 @@
 <script setup>
   import { ref, reactive } from 'vue'
   import { useRoute } from 'vue-router'
+  import { useStore } from 'vuex'
 
   import ContextMenu from './components/ContextMenu.vue'
 
   const route = useRoute()
+  const store = useStore()
   const isActive = tag => {
     return tag.path === route.path
   }
 
-  const onClickClose = () => {
-
+  const onClickClose = index => {
+    store.commit('tagsView/removeTagsView', {
+      type: 'index',
+      index
+    })
   }
 
   const visible = ref(false)

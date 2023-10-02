@@ -1,5 +1,7 @@
 <script setup>
   import { defineProps } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { useStore } from 'vuex'
 
   const props = defineProps({
     index: {
@@ -8,16 +10,24 @@
     }
   })
 
+  const router = useRouter()
+  const store = useStore()
   const onRefreshClick = () => {
-
+    router.go(0)
   }
 
   const onCloseRightClick = () => {
-
+    store.commit('tagsView/removeTagsView', {
+      type: 'right',
+      index: props.index
+    })
   }
 
   const onCloseOtherClick = () => {
-
+    store.commit('tagsView/removeTagsView', {
+      type: 'other',
+      index: props.index
+    })
   }
 </script>
 

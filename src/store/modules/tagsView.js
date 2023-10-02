@@ -18,6 +18,19 @@ const mutations = {
   changeTagsView(state, { index, tag }) {
     state.tagsViewList[index] = tag
     setItem(TAGS_VIEW, state.tagsViewList)
+  },
+  removeTagsView(state, payload) {
+    const tagsViewList = state.tagsViewList
+    if (payload.type === 'index') {
+      tagsViewList.splice(payload.index, 1)
+    } else if (payload.type === 'other') {
+      tagsViewList.splice(payload.index + 1, tagsViewList.length - payload.index + 1)
+      tagsViewList.splice(0, payload.index)
+    } else if (payload.type === 'right') {
+      tagsViewList.splice(payload.index + 1, tagsViewList.length - payload.index + 1)
+    }
+
+    setItem(TAGS_VIEW, state.tagsViewList)
   }
 }
 
