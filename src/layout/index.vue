@@ -2,8 +2,9 @@
   import SideBar from './components/Sidebar/index.vue'
   import NavBar from './components/Navbar.vue'
   import AppMain from './components/AppMain.vue'
+  import TagsView from '@/components/TagsView'
 
-  import variable from '@/styles/variable.modules.scss'
+  // import variable from '@/styles/variable.modules.scss'
 </script>
 
 <template>
@@ -19,6 +20,8 @@
 
       <div class="fixed-header">
         <NavBar />
+
+        <TagsView />
       </div>
 
       <AppMain />

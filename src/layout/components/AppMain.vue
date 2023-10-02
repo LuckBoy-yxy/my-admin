@@ -10,7 +10,7 @@
   const store = useStore()
 
   const getTitle = route => {
-    const title = ''
+    let title = ''
     if (!route.meta) {
       const pathArr = route.path.split('/')
       title = pathArr[pathArr.length - 1]
@@ -24,7 +24,7 @@
   watch(route, (to, form) => {
     if (!isTags(to.path)) return
     const { fullPath, meta, name, params, path, query  } = to
-    store.addTagsViewList('tagsView/mutations', {
+    store.commit('tagsView/addTagsViewList', {
       fullPath,
       meta,
       name,

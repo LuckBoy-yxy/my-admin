@@ -23,7 +23,8 @@ const getters = {
   },
   sidebarOpened: state => state.sidebar.sidebarOpened,
   language: state => state.i18n.language,
-  mainColor: state => state.theme.mainColor
+  mainColor: state => state.theme.mainColor,
+  tagsViewList: state => state.tagsView.tagsViewList
 }
 
 export default createStore({

@@ -9,10 +9,10 @@ const state = () => {
 
 const mutations = {
   addTagsViewList(state, tag) {
-    const isFind = tag.find(item => item.path === tag.path)
+    const isFind = state.tagsViewList.find(item => item.path === tag.path)
     if (!isFind) {
       state.tagsViewList.push(tag)
-      setItem(TAGS_VIEW, tag)
+      setItem(TAGS_VIEW, state.tagsViewList)
     }
   }
 }
