@@ -50,13 +50,19 @@
 
 <template>
   <div class="app-main">
-    <RouterView />
+    <RouterView v-slot="{ Component, route }">
+      <Transition name="fade-transform" mode="out-in">
+        <KeepAlive>
+          <Component :is="Component" :key="route.path" />
+        </KeepAlive>
+      </Transition>
+    </RouterView>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .app-main {
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 50px - 43px);
   width: 100%;
   position: relative;
   overflow: hidden;
