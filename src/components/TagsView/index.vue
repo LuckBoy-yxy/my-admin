@@ -1,5 +1,8 @@
 <script setup>
+  import { ref, reactive } from 'vue'
   import { useRoute } from 'vue-router'
+
+  import ContextMenu from './components/ContextMenu.vue'
 
   const route = useRoute()
   const isActive = tag => {
@@ -8,6 +11,20 @@
 
   const onClickClose = () => {
 
+  }
+
+  const visible = ref(false)
+  const menuStyle = reactive({
+    top: 0,
+    left: 0
+  })
+  const selectIndex = ref(0)
+  const openMenu = (e, index) => {
+    const { x, y } = e
+    visible.value = true
+    menuStyle.left = x + 'px'
+    menuStyle.top = y + 'px'
+    selectIndex.value = index
   }
 </script>
 
@@ -23,6 +40,7 @@
         backgroundColor: isActive(tag) ? $store.getters.cssVariable.menuBg : '',
         borderColor: isActive(tag) ? $store.getters.cssVariable.menuBg : ''
       }"
+      @contextmenu.prevent="openMenu($event, index)"
     >
       {{ tag.title }}
       <i
@@ -31,6 +49,12 @@
         @click.prevent.stop="onClickClose(index)"
       ></i>
     </RouterLink>
+
+    <ContextMenu
+      v-show="visible"
+      :style="menuStyle"
+      :index="selectIndex"
+    />
   </div>
 </template>
 
