@@ -7,6 +7,7 @@
   import ThemePicker from '@/components/ThemeSelect/index'
   import Screenfull from '@/components/Screenfull'
   import HeaderSearch from '@/components/HeaderSearch'
+  import Guide from '@/components/Guide'
 
   const store = useStore()
   const logout = () => {
@@ -21,6 +22,8 @@
     <Breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <guide class="right-menu-item hover-effect" />
+
       <HeaderSearch class="right-menu-item hover-effect"></HeaderSearch>
 
       <Screenfull class="right-menu-item hover-effect" />
@@ -51,7 +54,6 @@
 </template>
 
 <style lang="scss" scoped>
-
 .navbar {
   height: 50px;
   overflow: hidden;
