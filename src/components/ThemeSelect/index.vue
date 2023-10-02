@@ -17,7 +17,7 @@
     @command="handleCommand"
   >
     <el-tooltip :content="$t('msg.navBar.themeChange')">
-      <SvgIcon icon="change-theme" />
+      <SvgIcon id="guide-theme" icon="change-theme" />
     </el-tooltip>
 
     <template #dropdown>

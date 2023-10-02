@@ -13,6 +13,7 @@
     :class="{'hideSidebar': $store.getters.sidebarOpened === false}"
   >
     <SideBar
+      id="guide-sidebar"
       class="sidebar-container"
       :style="{ backgroundColor: $store.getters.cssVariable.menuBg }"
     />
@@ -21,7 +22,7 @@
       <div class="fixed-header">
         <NavBar />
 
-        <TagsView />
+        <TagsView id="guide-tags" />
       </div>
 
       <AppMain />

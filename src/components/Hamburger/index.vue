@@ -16,7 +16,7 @@
 
 <template>
   <div class="hamburger-container" @click="handleClick">
-    <SvgIcon class="hamburger" :icon="svgIcon" />
+    <SvgIcon id="guide-hamburger" class="hamburger" :icon="svgIcon" />
   </div>
 </template>
 

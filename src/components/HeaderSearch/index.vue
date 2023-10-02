@@ -80,6 +80,7 @@
 <template>
   <div class="header-search" :class="{ show: isShow }">
     <SvgIcon
+      id="guide-search"
       class-name="search-icon"
       icon="search"
       @click.stop="onShowClick"

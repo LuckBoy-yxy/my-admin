@@ -20,7 +20,10 @@
 
 <template>
   <div @click="onToggle">
-    <SvgIcon :icon="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" />
+    <SvgIcon
+      id="guide-full"
+      :icon="isFullscreen ? 'exit-fullscreen' : 'fullscreen'"
+    />
   </div>
 </template>
 

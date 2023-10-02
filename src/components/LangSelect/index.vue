@@ -33,7 +33,7 @@
     @command="handleSetLanguage"
   >
     <el-tooltip :content="$t('msg.navBar.lang')" :effect="effect">
-      <SvgIcon icon="language" />
+      <SvgIcon id="guide-lang" icon="language" />
     </el-tooltip>
 
     <template #dropdown>
