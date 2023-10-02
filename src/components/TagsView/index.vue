@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, reactive } from 'vue'
+  import { ref, reactive, watch } from 'vue'
   import { useRoute } from 'vue-router'
   import { useStore } from 'vuex'
 
@@ -31,6 +31,17 @@
     menuStyle.top = y + 'px'
     selectIndex.value = index
   }
+  const closeMenu = () => {
+    visible.value = false
+  }
+
+  watch(visible, () => {
+    if (visible) {
+      document.body.addEventListener('click', closeMenu)
+    } else {
+      document.body.removeEventListener('click', closeMenu)
+    }
+  })
 </script>
 
 <template>
