@@ -2,6 +2,7 @@
   import { ref } from 'vue'
 
   import { feature } from '@/api/user'
+  import { watchSwitchLang } from '@/utils/i18n'
   import ProjectCard from './components/ProjectCard.vue'
   import Chapter from './components/Chapter.vue'
   import Feature from './components/Feature.vue'
@@ -12,9 +13,9 @@
   const getFeatureData = async () => {
     const res = await feature()
     featureData.value = res
-    console.log(res)
   }
   getFeatureData()
+  watchSwitchLang(getFeatureData)
 </script>
 
 <template>

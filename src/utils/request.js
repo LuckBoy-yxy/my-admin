@@ -23,6 +23,8 @@ instance.interceptors.request.use(config => {
       config.headers.Authorization = `Bearer ${token}`
     }
   }
+
+  config.headers['Accept-Language'] = store.getters.language
   config.headers.icode = '071C6D3957E43AD4'
   return config
 }, err => {

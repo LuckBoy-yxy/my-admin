@@ -17,7 +17,7 @@ const messages = {
   }
 }
 
-const locale = store.getters.language
+const locale = 'zh'
 const i18n = createI18n({
   legacy: false,
   globalInjection: true,
