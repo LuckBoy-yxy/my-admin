@@ -9,3 +9,8 @@ export const getUserInfo = () => {
 export const feature = () => {
   return request('/user/feature', 'get')
 }
+
+// 获取个人中心, 章节功能数据
+export const chapter = () => {
+  return request('/user/chapter', 'get')
+}
