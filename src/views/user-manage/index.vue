@@ -1,5 +1,7 @@
 <script setup>
   import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
+
   import { getUserManageList } from '@/api/userManager'
   import { watchSwitchLang } from '@/utils/i18n'
 
@@ -28,13 +30,18 @@
     page.value = currentPage
     getListData()
   }
+
+  const router = useRouter()
+  const onImportExcelClick = () => {
+    router.push('/user/import')
+  }
 </script>
 
 <template>
   <div class="user-manage-container">
     <el-card class="header">
       <div>
-        <el-button type="primary">
+        <el-button type="primary" @click="onImportExcelClick">
           {{ $t('msg.excel.importExcel') }}
         </el-button>
         <el-button type="success">
