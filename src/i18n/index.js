@@ -5,23 +5,27 @@ import mZhLocale from './lang/zh'
 import mEnLocale from './lang/en'
 
 const messages = {
-  en: {
+  'en': {
     msg: {
       ...mEnLocale
     }
   },
-  zh: {
+  'zh': {
     msg: {
       ...mZhLocale
     }
   }
 }
 
-const locale = 'zh'
+
+function getLanguage() {
+  return store?.getters?.language
+}
+
 const i18n = createI18n({
   legacy: false,
   globalInjection: true,
-  locale,
+  locale: getLanguage(),
   messages
 })
 
