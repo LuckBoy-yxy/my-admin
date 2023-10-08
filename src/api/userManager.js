@@ -9,3 +9,8 @@ export const getUserManageList = data => {
 export const userBatchImport = data => {
   return request('/user-manage/batch/import', 'post', data)
 }
+
+// 删除用户数据
+export const deleteUser = id => {
+  return request(`/user-manage/detele/${id}`, 'get')
+}
