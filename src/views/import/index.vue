@@ -1,8 +1,35 @@
 <script setup>
+  import { useRouter } from 'vue-router'
+  import { useI18n } from 'vue-i18n'
+  import { ElMessage } from 'element-plus'
+
   import UploadExcel from '@/components/UploadExcel'
 
-  const onSuccess = excelData => {
-    console.log(excelData)
+  import { userBatchImport } from '@/api/userManager'
+  import { USER_RELATIONS } from './utils'
+
+  const i18n = useI18n()
+  const router = useRouter()
+  const onSuccess = async ({ header, results }) => {
+    const updateData = generateData(results)
+    await userBatchImport(updateData)
+    ElMessage.success({
+      message: results.length + i18n.t('msg.excel.importSuccess'),
+      type: 'success'
+    })
+    router.push('/user/manage')
+  }
+
+  const generateData = results => {
+    const arr = []
+    results.forEach(item => {
+      const info = {}
+      Object.keys(item).forEach(key => {
+        info[USER_RELATIONS[key]] = item[key]
+      })
+      arr.push(info)
+    })
+    return arr
   }
 </script>
 
