@@ -45,6 +45,10 @@
     exportToExcelVisible.value = true
   }
 
+  const onShowClick = id => {
+    router.push(`/user/info/${id}`)
+  }
+
   const onRemoveClick = data => {
     ElMessageBox.confirm(
       i18n.t('msg.excel.dialogTitle1') +
@@ -144,7 +148,11 @@
           width="260"
         >
           <template #default="{ row }">
-            <el-button type="primary" size="mini">
+            <el-button
+              type="primary"
+              size="mini"
+              @click="onShowClick(row._id)"
+            >
               {{ $t('msg.excel.show') }}
             </el-button>
             <el-button type="info" size="mini">

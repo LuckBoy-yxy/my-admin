@@ -19,3 +19,8 @@ export const deleteUser = id => {
 export const getUserManageAllList = () => {
   return request('/user-manage/all-list', 'get')
 }
+
+// 获取指定员工的详情数据
+export const userDetail = id => {
+  return request(`/user-manage/detail/${id}`, 'get')
+}

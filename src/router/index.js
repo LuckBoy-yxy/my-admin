@@ -74,6 +74,7 @@ const privateRoutes = [
         path: '/user/info/:id',
         name: 'userInfo',
         component: () => import(/* webpackChunkName: 'userInfo' */ '@/views/user-info/index'),
+        props: true,
         meta: {
           title: 'userInfo'
         }
