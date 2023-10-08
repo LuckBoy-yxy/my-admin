@@ -1,8 +1,9 @@
 <script setup>
   import { ref, defineProps } from 'vue'
   import XLSX from 'xlsx'
+  import { ElMessage } from 'element-plus'
 
-  import { getHeaderRow } from './utils'
+  import { getHeaderRow, isExcel } from './utils'
 
   const props = defineProps({
     beforeUpload: Function,
@@ -20,6 +21,22 @@
     const rawFile = files[0]
     if (!rawFile) return
     upload(rawFile)
+  }
+
+  const handleDrop = e => {
+    if (loading.value) return
+    const files = e.dataTransfer.files
+    if (files.length !== 1) {
+      return ElMessage.error('必须选中一个文件')
+    }
+    const rawFile = files[0]
+    if (!isExcel(rawFile)) {
+      return ElMessage.error('文件必须是 .xlsx, .xls, .csv 格式')
+    }
+    upload(rawFile)
+  }
+  const handleDragover = e => {
+    e.dataTransfer.dropEffect = 'copy'
   }
 
   const upload = rawFile => {
@@ -48,13 +65,6 @@
       }
       reader.readAsArrayBuffer(rawFile)
     })
-  }
-
-  const handleDrop = () => {
-
-  }
-  const handleDragover = () => {
-
   }
 
   const generateData = excelData => {
