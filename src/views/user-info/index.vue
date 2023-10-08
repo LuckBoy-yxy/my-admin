@@ -17,15 +17,38 @@
   }
   getUserDetail()
   watchSwitchLang(getUserDetail)
+
+  const printLoading = ref(false)
+  // 要完成指定区域的调用, 首先得配置区域打印的配置项
+  const printObj = {
+    // 打印区域
+    id: 'userInfoBox',
+    // 打印标题
+    popTitle: 'imooc-vue-element-admin',
+    // 打印前
+    beforeOpenCallback(vue) {
+      printLoading.value = true
+    },
+    // 执行打印
+    openCallback(vue) {
+      printLoading.value = false
+    }
+  }
 </script>
 
 <template>
   <div class="user-info-container">
     <el-card class="print-box">
-      <el-button type="primary">{{ $t('msg.userInfo.print') }}</el-button>
+      <el-button
+        type="primary"
+        :loading="printLoading"
+        v-print="printObj"
+      >
+        {{ $t('msg.userInfo.print') }}
+      </el-button>
     </el-card>
     <el-card>
-      <div class="user-info-box">
+      <div id="userInfoBox" class="user-info-box">
         <h2 class="title">{{ $t('msg.userInfo.title') }}</h2>
 
         <div class="header">
@@ -79,8 +102,8 @@
                   <span>
                     {{ $filters.dateFilter(item.startTime, 'YYYY/MM') }}
                     ----
-                    {{ $filters.dateFilter(item.endTime, 'YYYY/MM') }}</span
-                  >
+                    {{ $filters.dateFilter(item.endTime, 'YYYY/MM') }}
+                  </span>
                   <span>{{ item.title }}</span>
                   <span>{{ item.desc }}</span>
                 </li>
