@@ -14,3 +14,8 @@ export const userBatchImport = data => {
 export const deleteUser = id => {
   return request(`/user-manage/detele/${id}`, 'get')
 }
+
+// 获取所有用户列表数据
+export const getUserManageAllList = () => {
+  return request('/user-manage/all-list', 'get')
+}
