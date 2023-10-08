@@ -4,6 +4,8 @@
   import { ElMessageBox, ElMessage } from 'element-plus'
   import { useI18n } from 'vue-i18n'
 
+  import ExportToExcel from './components/Export2Excel.vue'
+
   import { getUserManageList, deleteUser } from '@/api/userManager'
   import { watchSwitchLang } from '@/utils/i18n'
 
@@ -35,8 +37,12 @@
   }
 
   const router = useRouter()
+  const exportToExcelVisible = ref(false)
   const onImportExcelClick = () => {
     router.push('/user/import')
+  }
+  const onToExcelClick = () => {
+    exportToExcelVisible.value = true
   }
 
   const onRemoveClick = data => {
@@ -64,7 +70,7 @@
         <el-button type="primary" @click="onImportExcelClick">
           {{ $t('msg.excel.importExcel') }}
         </el-button>
-        <el-button type="success">
+        <el-button type="success" @click="onToExcelClick">
           {{ $t('msg.excel.exportExcel') }}
         </el-button>
       </div>
@@ -166,6 +172,8 @@
         :total="total"
       ></el-pagination>
     </el-card>
+
+    <ExportToExcel v-model="exportToExcelVisible" />
   </div>
 </template>
 
