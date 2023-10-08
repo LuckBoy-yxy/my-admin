@@ -1,5 +1,5 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, onActivated } from 'vue'
   import { useRouter } from 'vue-router'
 
   import { getUserManageList } from '@/api/userManager'
@@ -35,6 +35,8 @@
   const onImportExcelClick = () => {
     router.push('/user/import')
   }
+
+  onActivated(getListData)
 </script>
 
 <template>

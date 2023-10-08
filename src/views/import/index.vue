@@ -6,7 +6,7 @@
   import UploadExcel from '@/components/UploadExcel'
 
   import { userBatchImport } from '@/api/userManager'
-  import { USER_RELATIONS } from './utils'
+  import { USER_RELATIONS, formatDate } from './utils'
 
   const i18n = useI18n()
   const router = useRouter()
@@ -25,6 +25,10 @@
     results.forEach(item => {
       const info = {}
       Object.keys(item).forEach(key => {
+        if (USER_RELATIONS[key] === 'openTime') {
+          info[USER_RELATIONS[key]] = formatDate(item[key])
+          return
+        }
         info[USER_RELATIONS[key]] = item[key]
       })
       arr.push(info)
