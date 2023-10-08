@@ -19,17 +19,12 @@
   watchSwitchLang(getUserDetail)
 
   const printLoading = ref(false)
-  // 要完成指定区域的调用, 首先得配置区域打印的配置项
   const printObj = {
-    // 打印区域
     id: 'userInfoBox',
-    // 打印标题
     popTitle: 'imooc-vue-element-admin',
-    // 打印前
     beforeOpenCallback(vue) {
       printLoading.value = true
     },
-    // 执行打印
     openCallback(vue) {
       printLoading.value = false
     }
