@@ -1,13 +1,53 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, defineProps } from 'vue'
+  import XLSX from 'xlsx'
+
+  import { getHeaderRow } from './utils'
+
+  const props = defineProps({
+    beforeUpload: Function,
+    onSuccess: Function
+  })
 
   const loading = ref(false)
   const excelUploadInput = ref(null)
   const handleUpload = () => {
-
+    excelUploadInput.value.click()
   }
-  const handleChange = () => {
 
+  const handleChange = e => {
+    const files = e.target.files
+    const rawFile = files[0]
+    if (!rawFile) return
+    upload(rawFile)
+  }
+
+  const upload = rawFile => {
+    excelUploadInput.value.value = null
+    if (!props.beforeUpload) return readerData(rawFile)
+    const before = props.beforeUpload(rawFile)
+    if (before) {
+      readerData(rawFile)
+    }
+  }
+
+  const readerData = rawFile => {
+    loading.value = true
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = e => {
+        const data = e.target.result
+        const workBook = XLSX.read(data, { type: 'array' })
+        const firstSheetName = workBook.SheetNames[0]
+        const workSheet = workBook.Sheets[firstSheetName]
+        const header = getHeaderRow(workSheet)
+        const results = XLSX.utils.sheet_to_json(workSheet)
+        generateData({ header, results })
+        loading.value = false
+        resolve()
+      }
+      reader.readAsArrayBuffer(rawFile)
+    })
   }
 
   const handleDrop = () => {
@@ -15,6 +55,10 @@
   }
   const handleDragover = () => {
 
+  }
+
+  const generateData = excelData => {
+    props.onSuccess && props.onSuccess(excelData)
   }
 </script>
 

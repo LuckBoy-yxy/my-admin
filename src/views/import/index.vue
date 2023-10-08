@@ -1,9 +1,15 @@
 <script setup>
   import UploadExcel from '@/components/UploadExcel'
+
+  const onSuccess = excelData => {
+    console.log(excelData)
+  }
 </script>
 
 <template>
-  <UploadExcel />
+  <UploadExcel
+    :onSuccess="onSuccess"
+  />
 </template>
 
 <style lang="scss" scoped>
