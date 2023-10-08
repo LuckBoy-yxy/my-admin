@@ -5,6 +5,7 @@
   import { watchSwitchLang } from '@/utils/i18n'
   import { getUserManageAllList } from '@/api/userManager'
   import { USER_RELATIONS } from './Export2ExcelConstants'
+  import { dateFilter } from '@/filter'
 
   defineProps({
     modelValue: {
@@ -46,6 +47,10 @@
         if (headers[key] === 'role') {
           const roles = item[headers[key]]
           return JSON.stringify(roles.map(role => role.title))
+        }
+
+        if (headers[key] === 'openTime') {
+          return dateFilter(item[headers[key]])
         }
 
         return item[headers[key]]
