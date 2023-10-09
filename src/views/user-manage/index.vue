@@ -1,10 +1,11 @@
 <script setup>
-  import { ref, onActivated } from 'vue'
+  import { ref, watch, onActivated } from 'vue'
   import { useRouter } from 'vue-router'
   import { ElMessageBox, ElMessage } from 'element-plus'
   import { useI18n } from 'vue-i18n'
 
   import ExportToExcel from './components/Export2Excel.vue'
+  import RolesDialog from './components/roles.vue'
 
   import { getUserManageList, deleteUser } from '@/api/userManager'
   import { watchSwitchLang } from '@/utils/i18n'
@@ -63,6 +64,16 @@
       getListData()
     })
   }
+
+  const roleDialogVisible = ref(false)
+  const selectUserId = ref('')
+  const onShowRoleClick = raw => {
+    selectUserId.value = raw._id
+    roleDialogVisible.value = true
+  }
+  watch(roleDialogVisible, newVal => {
+    if (!newVal) selectUserId.value = ''
+  })
 
   onActivated(getListData)
 </script>
@@ -155,9 +166,15 @@
             >
               {{ $t('msg.excel.show') }}
             </el-button>
-            <el-button type="info" size="mini">
+
+            <el-button
+              type="info"
+              size="mini"
+              @click="onShowRoleClick(row)"
+            >
               {{ $t('msg.excel.showRole') }}
             </el-button>
+
             <el-button
               type="danger"
               size="mini"
@@ -182,6 +199,11 @@
     </el-card>
 
     <ExportToExcel v-model="exportToExcelVisible" />
+
+    <RolesDialog
+      v-model="roleDialogVisible"
+      :userId="selectUserId"
+    />
   </div>
 </template>
 

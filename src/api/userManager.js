@@ -24,3 +24,13 @@ export const getUserManageAllList = () => {
 export const userDetail = id => {
   return request(`/user-manage/detail/${id}`, 'get')
 }
+
+// 获取当前用户角色的数据
+export const userRoles = id => {
+  return request(`/user-manage/role/${id}`, 'get')
+}
+
+// 给用户分配角色
+export const updateRole = (id, roles) => {
+  return request(`/user-manage/update-role/${id}`, 'post', { roles })
+}
