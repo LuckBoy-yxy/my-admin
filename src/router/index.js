@@ -1,8 +1,21 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Layout from '@/layout/index.vue'
+import ArticleCreaterRouter from './modules/ArticleCreate'
+import ArticleRouter from './modules/Article'
+import PermissionListRouter from './modules/PermissionList'
+import RoleListRouter from './modules/RoleList'
+import UserManageRouter from './modules/UserManage'
 
-const publicRoutes = [
+export const privateRoutes = [
+  UserManageRouter,
+  RoleListRouter,
+  PermissionListRouter,
+  ArticleRouter,
+  ArticleCreaterRouter
+]
+
+export const publicRoutes = [
   {
     path: '/login',
     component: () => import(/* webpackChunkName: 'login' */ '@/views/login/index.vue')
@@ -35,106 +48,9 @@ const publicRoutes = [
   }
 ]
 
-// 私有路由表
-const privateRoutes = [
-  {
-    path: '/user',
-    component: Layout,
-    redirect: '/user/manage',
-    meta: {
-      title: 'user',
-      icon: 'personnel'
-    },
-    children: [
-      {
-        path: '/user/manage',
-        component: () => import(/* webpackChunkName: 'userManage' */ '@/views/user-manage/index.vue'),
-        meta: {
-          title: 'userManage',
-          icon: 'personnel-manage'
-        }
-      },
-      {
-        path: '/user/role',
-        component: () => import(/* webpackChunkName: 'userRole' */ '@/views/role-list/index'),
-        meta: {
-          title: 'roleList',
-          icon: 'role'
-        }
-      },
-      {
-        path: '/user/permission',
-        component: () => import(/* webpackChunkName: 'userPermission' */ '@/views/permission-list/index'),
-        meta: {
-          title: 'permissionList',
-          icon: 'permission'
-        }
-      },
-      {
-        path: '/user/info/:id',
-        name: 'userInfo',
-        component: () => import(/* webpackChunkName: 'userInfo' */ '@/views/user-info/index'),
-        props: true,
-        meta: {
-          title: 'userInfo'
-        }
-      },
-      {
-        path: '/user/import',
-        name: 'import',
-        component: () => import(/* webpackChunkName: 'userImport' */ '@/views/import/index'),
-        meta: {
-          title: 'excelImport'
-        }
-      }
-    ]
-  },
-  {
-    path: '/article',
-    component: Layout,
-    redirect: '/article/ranking',
-    meta: {
-      title: 'article',
-      icon: 'article'
-    },
-    children: [
-      {
-        path: '/article/ranking',
-        component: () => import(/* webpackChunkName: 'articleRanking' */ '@/views/article-ranking/index'),
-        meta: {
-          title: 'articleRanking',
-          icon: 'article-ranking'
-        }
-      },
-      {
-        path: '/article/:id',
-        component: () => import(/* webpackChunkName: 'articleDetail' */ '@/views/article-detail/index'),
-        meta: {
-          title: 'articleDetail'
-        }
-      },
-      {
-        path: '/article/create',
-        component: () => import(/* webpackChunkName: 'articleCreate' */ '@/views/article-create/index'),
-        meta: {
-          title: 'articleCreate',
-          icon: 'article-create'
-        }
-      },
-      {
-        path: '/article/editor/:id',
-        component: () => import(/* webpackChunkName: 'articleEditor' */ '@/views/article-create/index'),
-        meta: {
-          title: 'articleEditor'
-        }
-      }
-    ]
-  }
-]
-
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: [...publicRoutes, ...privateRoutes]
+  routes: publicRoutes
 })
 
 export default router

@@ -45,6 +45,7 @@ const actions = {
   async getUserInfo(context) {
     const res = await getUserInfo()
     this.commit('user/setUserInfo', res)
+    return res
   },
   logout(context) {
     this.commit('user/setToken', '')

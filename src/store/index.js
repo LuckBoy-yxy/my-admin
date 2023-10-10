@@ -6,6 +6,7 @@ import sidebar from './modules/sidebar.js'
 import i18n from './modules/i18n.js'
 import theme from './modules/theme.js'
 import tagsView from './modules/tagsView.js'
+import permission from './modules/permission.js'
 
 import { MAIN_COLOR } from '@/constant'
 import { getItem } from '@/utils/storage'
@@ -34,6 +35,7 @@ export default createStore({
     sidebar,
     i18n,
     theme,
-    tagsView
+    tagsView,
+    permission
   }
 })
