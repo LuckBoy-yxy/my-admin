@@ -1,4 +1,4 @@
-import router from '@/router'
+import router, { resetRouter } from '@/router'
 import md5 from 'md5'
 
 import { login } from '@/api/login'
@@ -48,6 +48,7 @@ const actions = {
     return res
   },
   logout(context) {
+    resetRouter()
     this.commit('user/setToken', '')
     this.commit('user/setUserInfo', {})
     removeAllItem()

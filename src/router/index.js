@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import store from '@/store'
 
 import Layout from '@/layout/index.vue'
 import ArticleCreaterRouter from './modules/ArticleCreate'
@@ -47,6 +48,15 @@ export const publicRoutes = [
     ]
   }
 ]
+
+export function resetRouter() {
+  if (store.getters.userInfo?.permission?.menus) {
+    const menus = store.getters.userInfo.permission.menus
+    menus.forEach(menu => {
+      router.removeRoute(menu)
+    })
+  }
+}
 
 const router = createRouter({
   history: createWebHashHistory(),
