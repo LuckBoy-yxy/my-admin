@@ -1,7 +1,9 @@
 <script setup>
   import { ref, onActivated, onMounted } from 'vue'
+  import { ElMessageBox, ElMessage } from 'element-plus'
+  import { useI18n } from 'vue-i18n'
   
-  import { getArticleList } from '@/api/article'
+  import { getArticleList, deleteArticle } from '@/api/article'
   import { watchSwitchLang } from '@/utils/i18n'
   import { dynamicData, selectDynamicLabel, tableColumns } from './dynamic'
   import { tableRef, initSortable } from './sortable'
@@ -31,6 +33,22 @@
   const handleCurrentChange = currentPage => {
     page.value = currentPage
     getListData()
+  }
+
+  const i18n = useI18n()
+  const onRemoveClick = row => {
+    ElMessageBox.confirm(
+      i18n.t('msg.article.dialogTitle1') +
+        row.title +
+        i18n.t('msg.article.dialogTitle2'),
+      {
+        type: 'warning'
+      }
+    ).then(async () => {
+      await deleteArticle(row._id)
+      ElMessage.success(i18n.t('msg.article.removeSuccess'))
+      getListData()
+    })
   }
 
   onMounted(() => {

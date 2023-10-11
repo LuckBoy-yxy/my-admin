@@ -9,3 +9,8 @@ export const getArticleList = data => {
 export const articleSort = data => {
   return request('/article/sort', 'post', data)
 }
+
+// 删除文章
+export const deleteArticle = articleId => {
+  return request(`/article/delete/${articleId}`, 'get')
+}
