@@ -58,9 +58,11 @@
 
         <el-table-column
           :label="$t('msg.article.publicDate')"
-          prop="publicDate"
           align="center"
         >
+          <template #default="{ row }">
+            {{ $filters.relativeTime(row.publicDate) }}
+          </template>
         </el-table-column>
 
         <el-table-column
