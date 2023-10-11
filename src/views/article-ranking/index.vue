@@ -1,9 +1,10 @@
 <script setup>
-  import { ref, onActivated } from 'vue'
+  import { ref, onActivated, onMounted } from 'vue'
   
   import { getArticleList } from '@/api/article'
   import { watchSwitchLang } from '@/utils/i18n'
   import { dynamicData, selectDynamicLabel, tableColumns } from './dynamic'
+  import { tableRef, initSortable } from './sortable'
 
   const page = ref(1)
   const size = ref(10)
@@ -31,6 +32,10 @@
     page.value = currentPage
     getListData()
   }
+
+  onMounted(() => {
+    initSortable(tableData, getListData)
+  })
 </script>
 
 <template>
@@ -124,5 +129,11 @@
     margin-top: 20px;
     text-align: center;
   }
+}
+
+::v-deep .sortable-ghost {
+  opacity: 0.6;
+  color: #fff !important;
+  background: #304156 !important;
 }
 </style>
