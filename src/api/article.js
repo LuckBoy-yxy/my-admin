@@ -4,3 +4,8 @@ import request from '@/utils/request'
 export const getArticleList = data => {
   return request('/article/list', 'get', data)
 }
+
+// 修改排序, 更新文章列表数据
+export const articleSort = data => {
+  return request('/article/sort', 'post', data)
+}

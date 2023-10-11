@@ -1,5 +1,9 @@
 import { ref } from 'vue'
 import Sortable from 'sortablejs'
+import { ElMessage } from 'element-plus'
+import i18n from '@/i18n'
+
+import { articleSort } from '@/api/article'
 
 export const tableRef = ref(null)
 
@@ -10,6 +14,20 @@ export const initSortable = (tableData, cb) => {
   
   Sortable.create(el, {
     ghostClass: 'sortable-ghost',
-    onEnd(event) {}
+    async onEnd(event) {
+      const { newIndex, oldIndex } = event
+      await articleSort({
+        initRanking: tableData.value[oldIndex].ranking,
+        finalRanking: tableData.value[newIndex].ranking
+      })
+
+      ElMessage.success({
+        message: i18n.global.t('msg.article.sortSuccess'),
+        type: 'success'
+      })
+
+      tableData.value = []
+      cb & cb()
+    }
   })
 }
