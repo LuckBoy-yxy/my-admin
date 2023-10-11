@@ -2,6 +2,7 @@
   import { ref, onActivated, onMounted } from 'vue'
   import { ElMessageBox, ElMessage } from 'element-plus'
   import { useI18n } from 'vue-i18n'
+  import { useRouter } from 'vue-router'
   
   import { getArticleList, deleteArticle } from '@/api/article'
   import { watchSwitchLang } from '@/utils/i18n'
@@ -49,6 +50,11 @@
       ElMessage.success(i18n.t('msg.article.removeSuccess'))
       getListData()
     })
+  }
+
+  const router = useRouter()
+  const onShowClick = row => {
+    router.push(`/article/${row._id}`)
   }
 
   onMounted(() => {

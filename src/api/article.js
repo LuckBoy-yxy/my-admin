@@ -14,3 +14,8 @@ export const articleSort = data => {
 export const deleteArticle = articleId => {
   return request(`/article/delete/${articleId}`, 'get')
 }
+
+// 查看文章详情
+export const articleDetail = articleId => {
+  return request(`/article/${articleId}`, 'get')
+}
