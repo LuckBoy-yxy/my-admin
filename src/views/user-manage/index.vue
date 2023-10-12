@@ -135,7 +135,7 @@
               <el-tag
                 v-for="item in row.role"
                 :key="item.id"
-                size="mini"
+                size="small"
               >
                 {{ item.title }}
               </el-tag>
@@ -165,7 +165,6 @@
           <template #default="{ row }">
             <el-button
               type="primary"
-              size="mini"
               @click="onShowClick(row._id)"
             >
               {{ $t('msg.excel.show') }}
@@ -173,7 +172,6 @@
 
             <el-button
               type="info"
-              size="mini"
               v-permission="['distributeRole']"
               @click="onShowRoleClick(row)"
             >
@@ -182,7 +180,6 @@
 
             <el-button
               type="danger"
-              size="mini"
               v-permission="['removeUser']"
               @click="onRemoveClick(row)"
             >
