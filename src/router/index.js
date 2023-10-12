@@ -32,7 +32,7 @@ export const publicRoutes = [
         component: () => import(/* webpackChunkName: 'profile' */ '@/views/profile/index.vue'),
         meta: {
           title: 'profile',
-          icon: 'el-icon-user'
+          icon: 'personnel'
         }
       },
       {
