@@ -4,8 +4,6 @@ export default {
     loginBtn: '登录',
     usernameRule: '用户名为必填项',
     passwordRule: '密码不能少于6位',
-    userPlaceholder: '请输入用户名',
-    pwdPlaceholder: '请输入密码',
     desc: `
     测试权限账号：<br />
     提供三种权限账号：<br />
@@ -36,9 +34,7 @@ export default {
     articleEditor: '文章编辑'
   },
   toast: {
-    switchLangSuccess: '切换语言成功',
-    loginSuccess: '登录成功',
-    tokenError: 'token 已失效'
+    switchLangSuccess: '切换语言成功'
   },
   tagsView: {
     refresh: '刷新',
