@@ -1,17 +1,21 @@
 <script setup>
-  import { onMounted, defineProps, defineEmits } from 'vue'
+  import { onMounted, defineProps, defineEmits, watch } from 'vue'
   import { useStore } from 'vuex'
   import MKEditor from '@toast-ui/editor'
   import '@toast-ui/editor/dist/toastui-editor.css'
   import '@toast-ui/editor/dist/i18n/zh-cn'
 
   import { watchSwitchLang } from '@/utils/i18n'
-  import { commitArticle } from './commit'
+  import { commitArticle, editArticle } from './commit'
 
   const props = defineProps({
     title: {
       type: String,
       required: true
+    },
+    detail: {
+      type: Object,
+      default: () => {}
     }
   })
   const emits = defineEmits(['onSuccess'])
@@ -39,14 +43,29 @@
   })
 
   const onSubmitClick = async () => {
-    await commitArticle({
-      title: props.title,
-      content: mkEditor.getHTML()
-    })
-
+    if (props.detail?._id) {
+      await editArticle({
+        id: props.detail._id,
+        title: props.title,
+        content: mkEditor.getHTML()
+      })
+    } else {
+      await commitArticle({
+        title: props.title,
+        content: mkEditor.getHTML()
+      })
+    }
     mkEditor.reset()
     emits('onSuccess')
   }
+
+  watch(() => props.detail, newVal => {
+    if (newVal?.content) {
+      mkEditor.setHTML(newVal.content)
+    }
+  }, {
+    immediate: true
+  })
 
   onMounted(() => {
     el = document.querySelector('#markdown-box')

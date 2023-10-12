@@ -24,3 +24,8 @@ export const articleDetail = articleId => {
 export const createArticle = data => {
   return request('/article/create', 'post', data)
 }
+
+// 编辑文章
+export const articleEdit = data => {
+  return request('/article/edit', 'post', data)
+}
