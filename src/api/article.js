@@ -19,3 +19,8 @@ export const deleteArticle = articleId => {
 export const articleDetail = articleId => {
   return request(`/article/${articleId}`, 'get')
 }
+
+// 创建文章
+export const createArticle = data => {
+  return request('/article/create', 'post', data)
+}

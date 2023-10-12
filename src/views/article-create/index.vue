@@ -6,6 +6,10 @@
 
   const title = ref('')
   const activeName = ref('markdown')
+
+  const onSuccess = () => {
+    title.value = ''
+  }
 </script>
 
 <template>
@@ -21,7 +25,7 @@
 
       <el-tabs v-model="activeName">
         <el-tab-pane :label="$t('msg.article.markdown')" name="markdown">
-          <markdown></markdown>
+          <markdown :title="title" @onSuccess="onSuccess"></markdown>
         </el-tab-pane>
         <el-tab-pane :label="$t('msg.article.richText')" name="editor">
           <editor></editor>
