@@ -101,14 +101,14 @@
           >
             <el-button
               type="primary"
-              size="mini"
+              size="small"
               @click="onShowClick(row)"
             >
               {{ $t('msg.article.show') }}
             </el-button>
             <el-button
               type="danger"
-              size="mini"
+              size="small"
               @click="onRemoveClick(row)"
             >
               {{ $t('msg.article.remove') }}
