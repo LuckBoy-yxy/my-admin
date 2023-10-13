@@ -1,6 +1,9 @@
 <script setup>
   import { ref, onMounted, defineProps } from 'vue'
   import * as echars from 'echarts'
+  import { useI18n } from 'vue-i18n'
+
+  import { watchSwitchLang } from '@/utils/i18n'
 
   const props = defineProps({
     data: {
@@ -8,6 +11,8 @@
       required: true
     }
   })
+
+  const i18n = useI18n()
 
   let myChart
   const target = ref(null)
@@ -28,7 +33,7 @@
       }
     },
     legend: {
-      data: ['月累计收益', '日收益曲线'],
+      data: [i18n.t('msg.chart.monthIncome'), i18n.t('msg.chart.dayIncome')],
       right: 0
     },
     grid: {
@@ -52,30 +57,30 @@
         return parseInt(value.max * 1.2)
       },
       axisLabel: {
-        formatter: '{value} 万元'
+        formatter: `{value} ${i18n.t('msg.chart.unit')}`
       }
     },
 
     series: [
       {
-        name: '月累计收益',
+        name: i18n.t('msg.chart.monthIncome'),
         type: 'bar',
         barWidth: 35,
         tooltip: {
           valueFormatter: function(value) {
-            return value + '万元'
+            return value + i18n.t('msg.chart.unit')
           }
         },
         data: props.data.monthAmountList.map(item => item.amount)
       },
       {
-        name: '日收益曲线',
+        name: i18n.t('msg.chart.dayIncome'),
         type: 'line',
         color: '#6EC6D0',
         smooth: true,
         tooltip: {
           valueFormatter: function(value) {
-            return value + '万元'
+            return value + i18n.t('msg.chart.unit')
           }
         },
 
@@ -86,6 +91,8 @@
 
     myChart.setOption(options)
   }
+
+  watchSwitchLang(renderChart)
 </script>
 
 <template>
