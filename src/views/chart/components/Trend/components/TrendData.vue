@@ -20,9 +20,9 @@
 
   onMounted(() => {
     new CountUp(titleAmountTarget.value, props.data.allAmount, options).start()
-    new CountUp(tadayAddedTarget.value, props.data.allAmount, options).start()
-    new CountUp(tadayExpendTarget.value, props.data.allAmount, options).start()
-    new CountUp(tadayBalanceTarget.value, props.data.allAmount, options).start()
+    new CountUp(tadayAddedTarget.value, props.data.tadayAdded, options).start()
+    new CountUp(tadayExpendTarget.value, props.data.tadaySub, options).start()
+    new CountUp(tadayBalanceTarget.value, props.data.tadayAmount, options).start()
   })
 </script>
 

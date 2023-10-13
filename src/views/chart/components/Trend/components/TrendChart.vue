@@ -1,6 +1,13 @@
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, defineProps } from 'vue'
   import * as echars from 'echarts'
+
+  const props = defineProps({
+    data: {
+      type: Object,
+      required: true
+    }
+  })
 
   let myChart
   const target = ref(null)
@@ -11,24 +18,71 @@
 
   const renderChart = () => {
     const options = {
-      title: {
-        text: 'Echars 入门示例'
-      },
-      legend: {
-        data: ['销量']
-      },
-      xAxis: {
-        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-      },
-      yAxis: {},
-      series: [
-        {
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        crossStyle: {
+          color: '#999'
         }
-      ]
-    }
+      }
+    },
+    legend: {
+      data: ['月累计收益', '日收益曲线'],
+      right: 0
+    },
+    grid: {
+      top: 20,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: props.data.monthAmountList.map(item => item.time),
+      axisTick: {
+        show: false
+      }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: function(value) {
+        return parseInt(value.max * 1.2)
+      },
+      axisLabel: {
+        formatter: '{value} 万元'
+      }
+    },
+
+    series: [
+      {
+        name: '月累计收益',
+        type: 'bar',
+        barWidth: 35,
+        tooltip: {
+          valueFormatter: function(value) {
+            return value + '万元'
+          }
+        },
+        data: props.data.monthAmountList.map(item => item.amount)
+      },
+      {
+        name: '日收益曲线',
+        type: 'line',
+        color: '#6EC6D0',
+        smooth: true,
+        tooltip: {
+          valueFormatter: function(value) {
+            return value + '万元'
+          }
+        },
+
+        data: props.data.dailyCurve.map(item => item.amount)
+      }
+    ]
+  }
 
     myChart.setOption(options)
   }
