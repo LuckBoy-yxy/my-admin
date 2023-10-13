@@ -1,11 +1,28 @@
 <script setup>
-  import { defineProps } from 'vue'
+  import { defineProps, ref, onMounted } from 'vue'
+  import { CountUp } from 'countup.js'
 
-  defineProps({
+  const props = defineProps({
     data: {
       type: Object,
       required: true
     }
+  })
+
+  const titleAmountTarget = ref(null)
+  const tadayAddedTarget = ref(null)
+  const tadayExpendTarget = ref(null)
+  const tadayBalanceTarget = ref(null)
+  const options = {
+    decimalPlaces: 2,
+    duration: 1.5
+  }
+
+  onMounted(() => {
+    new CountUp(titleAmountTarget.value, props.data.allAmount, options).start()
+    new CountUp(tadayAddedTarget.value, props.data.allAmount, options).start()
+    new CountUp(tadayExpendTarget.value, props.data.allAmount, options).start()
+    new CountUp(tadayBalanceTarget.value, props.data.allAmount, options).start()
   })
 </script>
 
@@ -15,7 +32,7 @@
       <div class="title-name">{{ $t('msg.chart.trendDataTitle') }}</div>
       <div class="title-amount">
         &yen;
-        <span>{{ data.allAmount }}</span>
+        <span ref="titleAmountTarget">{{ data.allAmount }}</span>
       </div>
     </div>
 
@@ -24,7 +41,7 @@
         {{ $t('msg.chart.trendDataTadayAdded') }}
       </div>
       <div class="item-amount">
-        <span class="item-amount-number">{{ data.tadayAdded }}</span>
+        <span class="item-amount-number" ref="tadayAddedTarget">{{ data.tadayAdded }}</span>
         {{ $t('msg.chart.unit') }}
       </div>
     </div>
@@ -34,7 +51,7 @@
         {{ $t('msg.chart.trendDataTadayExpend') }}
       </div>
       <div class="item-amount">
-        <span class="item-amount-number">{{ data.tadaySub }}</span>
+        <span class="item-amount-number" ref="tadayExpendTarget">{{ data.tadaySub }}</span>
         {{ $t('msg.chart.unit') }}
       </div>
     </div>
@@ -44,7 +61,7 @@
         {{ $t('msg.chart.trendDataTadayBalance') }}
       </div>
       <div class="item-amount">
-        <span class="item-amount-number">{{ data.tadayAmount }}</span>
+        <span class="item-amount-number" ref="tadayBalanceTarget">{{ data.tadayAmount }}</span>
         {{ $t('msg.chart.unit') }}
       </div>
     </div>
