@@ -34,7 +34,8 @@ export default {
     articleEditor: '文章编辑'
   },
   toast: {
-    switchLangSuccess: '切换语言成功'
+    switchLangSuccess: '切换语言成功',
+    loginSuccess: '登录成功'
   },
   tagsView: {
     refresh: '刷新',

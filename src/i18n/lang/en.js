@@ -34,7 +34,8 @@ export default {
     articleEditor: 'ArticleEditor'
   },
   toast: {
-    switchLangSuccess: 'Switch Language Success'
+    switchLangSuccess: 'Switch Language Success',
+    loginSuccess: 'Login Successfully'
   },
   tagsView: {
     refresh: 'Refresh',
