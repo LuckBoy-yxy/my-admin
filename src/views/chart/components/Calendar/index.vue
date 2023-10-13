@@ -1,7 +1,40 @@
 <script setup>
   import { ref } from 'vue'
 
-  const currentDate = ref(new Date())
+  import { getChartCalendar } from '@/api/chart'
+
+  const calendarListData = ref([])
+  const getCalendarListData = async () => {
+    const { result } = await getChartCalendar()
+    calendarListData.value = result
+  }
+  getCalendarListData()
+
+  const dateAmountObj = ref({})
+  const getTadayAmount = date => {
+    if (dateAmountObj.value[date]) {
+      return dateAmountObj.value[date]
+    }
+
+    const tadayData = calendarListData.value.find(item => item.date === date)
+    if (!tadayData) {
+      return 0
+    }
+
+    const tadayAmount = tadayData.amount
+    dateAmountObj.value[date] = tadayAmount
+    return tadayAmount
+  }
+
+  const calendarItemBgClass = date => {
+    if (getTadayAmount(date) > 0) {
+      return 'profit'
+    } else if (getTadayAmount(date) < 0) {
+      return 'loss'
+    }
+
+    return ''
+  }
 </script>
 
 <template>
@@ -13,14 +46,15 @@
   >
     <el-calendar class="calendar" v-model="currentDate">
       <template #dateCell="{ data }">
-        <p :class="[data.isSelected ? 'is-selected' : '']">
-          {{
-            data.day
-              .split('-')
-              .slice(2)
-              .join('')
-          }}
+        <p :class="[
+            data.isSelected ? 'is-selected' : '',
+            calendarItemBgClass(data.day)
+          ]">
+          {{ data.day.split('-').slice(2).join('') }}
           <br />
+          <span class="amount" v-if="getTadayAmount(data.day)">
+            {{ getTadayAmount(data.day) }}
+          </span>
         </p>
       </template>
     </el-calendar>
