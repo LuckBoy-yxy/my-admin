@@ -5,6 +5,7 @@
 
   import { getChartTimeAmount } from '@/api/chart'
   import { watchSwitchLang } from '@/utils/i18n'
+  import emitter from '@/utils/eventBub'
 
   const data = ref([])
   const getData = async date => {
@@ -107,6 +108,9 @@
   }
 
   watchSwitchLang(renderChart)
+  emitter.on('calendarChange', date => {
+    getData(date)
+  })
 </script>
 
 <template>

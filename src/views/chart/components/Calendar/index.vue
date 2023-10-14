@@ -1,7 +1,8 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
 
   import { getChartCalendar } from '@/api/chart'
+  import emitter from '@/utils/eventBub'
 
   const currentDate = ref(new Date())
 
@@ -37,6 +38,10 @@
 
     return ''
   }
+
+  watch(currentDate, newVal => {
+    emitter.emit('calendarChange', newVal)
+  })
 </script>
 
 <template>
