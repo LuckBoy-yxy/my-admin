@@ -14,3 +14,8 @@ export const getChartCalendar = () => {
 export const getChartTimeAmount = date => {
   return request('/chart/time/amount', 'get', date)
 }
+
+// 获取饼图数据
+export const getChartPie = () => {
+  return request('/chart/pie', 'get')
+}
