@@ -7,6 +7,7 @@
   import { getChartWordCloud } from '@/api/chart'
   import { watchSwitchLang } from '@/utils/i18n'
   import { randomRGB } from '@/utils/color'
+  import wordcloudBg from '@/assets/wordcloud.png'
 
   const i18n = useI18n()
 
@@ -25,6 +26,9 @@
   })
 
   const renderChart = () => {
+    const maskImage = new Image()
+    maskImage.src = wordcloudBg
+
     const option = {
       title: {
         text: i18n.t('msg.chart.cloudChartTitle')
@@ -39,6 +43,7 @@
           textStyle: {
             color: randomRGB
           },
+          maskImage,
           emphasis: {
             textStyle: {
               fontWeight: 'bold',
@@ -50,7 +55,9 @@
       ]
     }
 
-    myChart.setOption(option)
+    maskImage.onload = function() {
+      myChart.setOption(option)
+    }
   }
 
   watchSwitchLang(renderChart)
