@@ -46,7 +46,6 @@
             position: 'center'
           },
           emphasis: {
-            // 文本
             label: {
               show: true,
               fontSize: '22',

@@ -19,3 +19,8 @@ export const getChartTimeAmount = date => {
 export const getChartPie = () => {
   return request('/chart/pie', 'get')
 }
+
+// 获取文档云图数据
+export const getChartWordCloud = () => {
+  return request('/chart/wordcloud', 'get')
+}
