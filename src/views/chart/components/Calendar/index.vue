@@ -3,6 +3,8 @@
 
   import { getChartCalendar } from '@/api/chart'
 
+  const currentDate = ref(new Date())
+
   const calendarListData = ref([])
   const getCalendarListData = async () => {
     const { result } = await getChartCalendar()

@@ -9,3 +9,8 @@ export const getChartTrend = () => {
 export const getChartCalendar = () => {
   return request('/chart/calendar', 'get')
 }
+
+// 获取日金额分析图数据
+export const getChartTimeAmount = date => {
+  return request('/chart/time/amount', 'get', date)
+}
