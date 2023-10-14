@@ -24,3 +24,8 @@ export const getChartPie = () => {
 export const getChartWordCloud = () => {
   return request('/chart/wordcloud', 'get')
 }
+
+// 获取地图可视化数据
+export const getChartMap = () => {
+  return request('/chart/bmap', 'get')
+}
