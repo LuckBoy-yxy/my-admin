@@ -29,3 +29,8 @@ export const getChartWordCloud = () => {
 export const getChartMap = () => {
   return request('/chart/bmap', 'get')
 }
+
+// 获取大区数据
+export const getChartRegions = () => {
+  return request('/chart/regions', 'get')
+}
