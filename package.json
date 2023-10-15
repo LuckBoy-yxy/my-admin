@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@antv/s2": "^1.19.0",
     "@element-plus/icons-vue": "^2.1.0",
     "@toast-ui/editor": "^3.0.2",
     "axios": "^1.5.0",

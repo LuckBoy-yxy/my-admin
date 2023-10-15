@@ -34,3 +34,8 @@ export const getChartMap = () => {
 export const getChartRegions = () => {
   return request('/chart/regions', 'get')
 }
+
+// 获取大区表格数据
+export const getChartSheet = regionId => {
+  return request('/chart/sheets', 'get', regionId)
+}
