@@ -20,6 +20,7 @@
   const currentRegionsIndex = ref(0)
   const onChangeRegion = index => {
     currentRegionsIndex.value = index
+    getChartSheetData({ regionId: regionsData.value[index].id })
   }
 
   const sheetData = ref([])
@@ -32,7 +33,7 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="18">
-      <S2 v-if="sheetData" :data="sheetData" />
+      <S2 :data="sheetData" />
     </el-col>
     <el-col :span="6">
       <SheetLabelVue
